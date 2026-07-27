@@ -731,7 +731,7 @@
       'for this visit alone. Refresh, and it is gone forever.</p>' +
       '<canvas id="masterCanvas" width="440" height="440"></canvas>' +
       '<div class="sigcap">Your tohu — generated uniquely from this moment. No two visitors see the same.</div>' +
-      '<div class="sigcap" id="contactLine">→ Start a project — tell us about your product</div>' +
+      '<div class="sigcap" id="contactLine" style="text-transform:none"><a href="mailto:nz1labs@gmail.com" style="color:#e8c37a;text-decoration:none">→ Start a project — nz1labs@gmail.com</a></div>' +
       '</div>';
     document.getElementById("masterClose").addEventListener("click", closeManifesto);
     drawTohu(document.getElementById("masterCanvas"), VISIT);
