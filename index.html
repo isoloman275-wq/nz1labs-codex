@@ -57,6 +57,14 @@
   #hint{position:fixed;right:clamp(14px,3vw,30px);bottom:clamp(14px,3vh,28px);z-index:3;
     font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint);text-align:right;max-width:46vw;line-height:1.7}
   #hint b{color:var(--ink-dim);font-weight:500}
+  #hint b{color:var(--ink-dim);font-weight:500}
+  /* ---------- Brand bar (persistent) ---------- */
+  #brand{position:fixed;left:50%;transform:translateX(-50%);bottom:clamp(10px,2.4vh,22px);z-index:3;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase;text-align:center}
+  #brand a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+  #brand a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+  @media (max-width:560px){ #brand{font-size:9px;bottom:6px} }
+
   /* ---------- Node label (floating) ---------- */
   #label{position:fixed;z-index:3;pointer-events:none;transform:translate(-50%,-140%);opacity:0;transition:opacity .25s;
     font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap;
@@ -159,6 +167,12 @@
     <b>Drag</b> to orbit · <b>scroll</b> to zoom · <b>click a sealed discipline</b> to see what we do<br/>
     Clear all nine, and the proposal appears.
   </div>
+  <div id="brand">
+    <a href="https://github.com/isoloman275-wq" target="_blank" rel="noopener">GitHub · isoloman275-wq</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:nz1labs@gmail.com">nz1labs@gmail.com</a>
+  </div>
+
 
   <div id="modal">
     <div class="card" id="card">
