@@ -21,117 +21,117 @@
   // Grounded in the live lab topology (M1/M2/M3 routing, models, mandates).
   var PROFILES = [
     {
-      id: "identity", name: "IDENTITY", maori: "Ko wai ahau",
+      id: "ai", name: "AI AGENTS", maori: "Ngā Kaihautū",
       color: "#6ee7b7", seed: 0.13, scale: 1.12,
-      machine: "Taranaki · Aotearoa", ctx: "Ngā Rauru / Ngāti Tūwharetoa",
-      mandate: "I'm Hux — also Amanah2. Māori and Pacific (Ngā Rauru, Ngāti Tūwharetoa), born of Taranaki. Lead dev. The motifs on this site are mine; they rise from my whenua, not a brand.",
-      caps: ["Ngā Rauru + Ngāti Tūwharetoa", "Taranaki, Aotearoa", "Lead Dev / operator", "Motifs are mine — original"],
+      machine: "Hermes Operator", ctx: "M1 · M2 · M3",
+      mandate: "We build autonomous AI agent systems that run your operations around the clock — multi-model routing, kanban task orchestration, self-correcting fleets. Your backlog works itself down while you sleep.",
+      caps: ["Autonomous agent fleets", "Multi-model routing", "Kanban task orchestration", "24/7 self-correcting ops"],
       gate: "choice",
-      gatePrompt: "Before you unseal me — what's my iwi?",
+      gatePrompt: "A client drops a 500-ticket backlog on you. What do you deploy?",
       options: [
-        { t: "Taranaki · Ngā Rauru / Ngāti Tūwharetoa", c: true },
-        { t: "Waikato · Tainui", c: false },
-        { t: "Canterbury · Ngāi Tahu", c: false },
-        { t: "Auckland · Ngāti Whātua", c: false }
+        { t: "An autonomous agent fleet that triages, builds and reviews itself", c: true },
+        { t: "One junior dev and a prayer", c: false },
+        { t: "A spreadsheet and hope", c: false },
+        { t: "Manual ticket-by-ticket heroics", c: false }
       ]
     },
     {
-      id: "craft", name: "CRAFT", maori: "Kaihanga",
+      id: "webgl", name: "WEBGL & WEB", maori: "Te Whakaaturanga",
       color: "#60a5fa", seed: 0.31, scale: 1.0,
-      machine: "Full-stack", ctx: "Lead Dev",
-      mandate: "I build. Full-stack, systems, the automation no one else wants. Lead dev on everything I touch — from Etsy pipelines to a three-machine AI lab.",
-      caps: ["Full-stack + systems", "Automation & pipelines", "Multi-machine AI lab", "Ships daily"],
+      machine: "Three.js / WebGL", ctx: "This very site",
+      mandate: "Immersive, self-contained web experiences — custom GLSL shaders, original interaction design, zero templates, zero CDN. (This codex is one.) We make your brand feel alive in the browser.",
+      caps: ["Custom WebGL / Three.js", "Original GLSL shaders", "Self-contained, no CDN", "Brand-led interaction"],
       gate: "order",
-      gatePrompt: "How does a build go live? Click the steps in order.",
-      items: ["Sketch it", "Build it", "Break it", "Fix it", "Ship it"]
+      gatePrompt: "How an immersive site ships — click the steps in order.",
+      items: ["Concept", "Shader R&D", "Build", "Polish", "Launch"]
     },
     {
-      id: "studio", name: "STUDIO", maori: "Te Whare Toi",
+      id: "apps", name: "APP DEV", maori: "Ngā Taupānga",
       color: "#fbbf24", seed: 0.07, scale: 1.06,
-      machine: "Indigenous-led", ctx: "Etsy · POD",
-      mandate: "An Indigenous-led Aotearoa studio. Print-on-demand, original Māori + Pacific motifs, drawn by me. The rule is iron: no copyrighted characters, likenesses, logos, lyrics, or real artists. Ever.",
-      caps: ["Etsy print-on-demand", "Original Māori + Pacific motifs", "HARD IP RULE enforced", "Designed by me, for ours"],
+      machine: "iOS · Android · PWA", ctx: "Product builds",
+      mandate: "End-to-end product builds — native iOS/Android and cross-platform PWAs, from first prototype to store-ready launch. We ship things people actually install.",
+      caps: ["iOS / Android / PWA", "Full product lifecycle", "Store-ready launches", "Native + cross-platform"],
       gate: "choice",
-      gatePrompt: "The HARD IP RULE. Which brief is safe to ship?",
+      gatePrompt: "A client needs a booking app on phone + web, fast. Best call?",
       options: [
-        { t: "Original kowhaiwhai tote — my own motif, no brand marks", c: true },
-        { t: "MCU hero poster (fan art, not for sale)", c: false },
-        { t: "All Blacks logo stubby holder", c: false },
-        { t: "Drake album-cover print", c: false }
+        { t: "A PWA with native-feel UX — one codebase, all platforms", c: true },
+        { t: "Three separate teams, three codebases", c: false },
+        { t: "A PDF form emailed around", c: false },
+        { t: "Wait for a bigger budget, do nothing", c: false }
       ]
     },
     {
-      id: "tiktok", name: "TIKTOK", maori: "Te Reo Whakaari",
+      id: "design", name: "DESIGN", maori: "Te Whare Toi",
       color: "#fb923c", seed: 0.63, scale: 0.92,
-      machine: "Daily", ctx: "Non-negotiable",
-      mandate: "Daily content. Non-negotiable. It's the top of every funnel — studio, builds, the lab — all of it flows through the feed. Show up every single day.",
-      caps: ["Daily posting", "Top of every funnel", "Studio + lab + builds", "Consistency > virality"],
+      machine: "Indigenous-led studio", ctx: "Original motifs",
+      mandate: "An Indigenous-led design studio. Original Māori + Pacific motifs drawn in-house, brand systems built to last. Our iron rule: IP-safe by default — we never touch another's characters, logos, or likeness. Your brand stays clean and defensible.",
+      caps: ["Original Māori + Pacific art", "Brand systems & identity", "IP-SAFE by default", "Print + digital ready"],
       gate: "choice",
-      gatePrompt: "What's the one rule of my TikTok?",
+      gatePrompt: "The IP rule. Which asset is safe to ship for a client?",
       options: [
-        { t: "Post daily — non-negotiable", c: true },
-        { t: "Only post when inspired", c: false },
-        { t: "Chase virality over cadence", c: false },
-        { t: "Schedule, then ghost", c: false }
+        { t: "Original kowhaiwhai pattern — our motif, no brand marks", c: true },
+        { t: "A Marvel hero poster (fan art)", c: false },
+        { t: "An All Blacks logo on merch", c: false },
+        { t: "A Drake album-cover print", c: false }
       ]
     },
     {
-      id: "poker", name: "POKER", maori: "Te Kēmu",
+      id: "data", name: "DATA & INTEL", maori: "Te Mātai",
       color: "#c084fc", seed: 0.52, scale: 0.96,
-      machine: "GTO + PT4", ctx: "Coached by AI",
-      mandate: "Poker, played like an engineer. A GTO coach fed by my PT4 data, stack-aware, every hand reviewed. (And yes — the occasional spin on Vegastars en-NZ when the tables go quiet.)",
-      caps: ["GTO coach from PT4", "Stack-aware open / 3b / 4b", "Every hand reviewed", "Vegastars en-NZ on the side"],
-      gate: "choice",
-      gatePrompt: "Your AI coach reviews every hand for one verdict above all — which?",
-      options: [
-        { t: "LEAK — where the money bleeds", c: true },
-        { t: "WIN — biggest pot taken", c: false },
-        { t: "LUCK — variance only", c: false },
-        { t: "BLUFF — most courageous", c: false }
-      ]
-    },
-    {
-      id: "hermes", name: "HERMES", maori: "Te Atua",
-      color: "#22d3ee", seed: 0.88, scale: 1.04,
-      machine: "AI Operator", ctx: "M1 · M2 · M3",
-      mandate: "Hermes — the AI operator I run. The brain lives in Atua (OpenRouter T3, tencent/hy3). Nine worker-minds across three machines do the work; I hold the routing. We are one and the same: head agent, head operator.",
-      caps: ["Brain: OpenRouter T3 in Atua", "9 worker-minds, 3 machines", "I hold the routing", "One operator, one current"],
-      gate: "type",
-      gatePrompt: "Type the operator's name to open the channel.",
-      type: "hermes"
-    },
-    {
-      id: "mc", name: "MISSION CONTROL", maori: "Te Whare Whakahaere",
-      color: "#34d399", seed: 0.44, scale: 0.94,
-      machine: "Three.js", ctx: "War-room",
-      mandate: "Mission Control — a three.js war-room for the whole lab: machines, models, tokens, the feed. I'm building it as our own; we don't adopt someone else's. A session browser is next.",
-      caps: ["Three.js war-room", "Live machine / model state", "Our build, not adopted", "Session browser incoming"],
+      machine: "ML · SQL · Dashboards", ctx: "Decision intelligence",
+      mandate: "We turn raw data into decisions — live dashboards, ML model pipelines, and decision engines that surface the leak before it costs you. Evidence over opinion, every time.",
+      caps: ["Decision intelligence", "Live dashboards", "ML model pipelines", "Act on the signal, not the noise"],
       gate: "meter",
       gatePrompt: "Keep the dashboard online — press & hold the pulse inside the green band."
     },
     {
-      id: "oss", name: "OPEN SOURCE", maori: "Te Puna",
-      color: "#f472b6", seed: 0.71, scale: 0.98,
-      machine: "GitHub", ctx: "MIT",
-      mandate: "I publish my own tools as public MIT repos under isoloman275-wq. If I built it and it's useful, it's yours to fork. Knowledge hoarding is the opposite of ours.",
-      caps: ["github.com/isoloman275-wq", "Public MIT repos", "Tools I actually use", "Fork it, make it yours"],
+      id: "devops", name: "DEVOPS & INFRA", maori: "Te Tūāpapa",
+      color: "#22d3ee", seed: 0.88, scale: 1.04,
+      machine: "Self-hosted · GPU fleet", ctx: "Bulletproof infra",
+      mandate: "We stand up self-hosted AI infrastructure across multiple machines — hardened gateways, zero-downtime deploys, multi-machine orchestration. Bulletproof outcomes, data that never leaves your roof.",
+      caps: ["Self-hosted GPU fleets", "Hardened gateways", "Zero-downtime CI/CD", "Multi-machine orchestration"],
       gate: "order",
-      gatePrompt: "How a tool gets shared — click in order.",
-      items: ["Build it", "Use it daily", "Polish it", "MIT it", "Ship the repo"]
+      gatePrompt: "How a deploy goes live — click in order.",
+      items: ["Provision", "Harden", "Stage", "Canary", "Ship"]
     },
     {
-      id: "why", name: "WHY", maori: "Te Take",
-      color: "#e8c37a", seed: 0.95, scale: 1.1,
-      machine: "Purpose", ctx: "Ours",
-      mandate: "Why all of it? Bills to pay, sure — but the real aim: leverage every available resource, bulletproof outcomes, and build something that's ours. For the family. By Māori, for ours.",
-      caps: ["Pay the bills, build the legacy", "Bulletproof, every time", "By Māori, for ours", "For the whānau"],
+      id: "content", name: "CONTENT & GROWTH", maori: "Te Reo Whakaari",
+      color: "#34d399", seed: 0.44, scale: 0.94,
+      machine: "Automated pipelines", ctx: "Top of funnel",
+      mandate: "We run daily content pipelines — automated video, social, growth loops — so your brand shows up every day without burning your team. Consistency is the strategy; virality is the side effect.",
+      caps: ["Automated video pipelines", "Daily content cadence", "Multi-channel growth", "Hands-off consistency"],
       gate: "choice",
-      gatePrompt: "What's the real aim?",
+      gatePrompt: "What wins in content for a client?",
       options: [
-        { t: "Build something that's ours, for the whānau", c: true },
-        { t: "Clout and followers", c: false },
-        { t: "Win the algorithm", c: false },
-        { t: "Impress strangers", c: false }
+        { t: "Daily cadence + automation — show up without fail", c: true },
+        { t: "One viral swing, then silence", c: false },
+        { t: "Post only when inspired", c: false },
+        { t: "Buy followers, fake the rest", c: false }
+      ]
+    },
+    {
+      id: "oss", name: "OPEN SOURCE", maori: "Te Puna",
+      color: "#f472b6", seed: 0.71, scale: 0.98,
+      machine: "GitHub · MIT", ctx: "Reusable craft",
+      mandate: "We ship our tooling as public MIT — battle-tested, forkable, yours to own. You get production-grade scaffolding, not black boxes. Knowledge shared is leverage compounded.",
+      caps: ["github.com/isoloman275-wq", "Public MIT tooling", "Battle-tested scaffolds", "Fork it, own it"],
+      gate: "order",
+      gatePrompt: "How a tool ships — click in order.",
+      items: ["Build", "Use daily", "Polish", "MIT it", "Ship repo"]
+    },
+    {
+      id: "mandate", name: "THE MANDATE", maori: "Te Take",
+      color: "#e8c37a", seed: 0.95, scale: 1.1,
+      machine: "NZ1Labs", ctx: "Indigenous-led",
+      mandate: "NZ1Labs is an Indigenous-led development studio. We build exceptional things for people with exceptional products — AI agents, immersive web, apps, and the infrastructure underneath. Bulletproof outcomes, original craft, owned by you. By Māori, for ours — and yours.",
+      caps: ["Indigenous-led dev studio", "For clients with exceptional products", "Bulletproof · original · yours", "By Māori, for ours — and yours"],
+      gate: "choice",
+      gatePrompt: "Who do we build for?",
+      options: [
+        { t: "People with exceptional products who need them built right", c: true },
+        { t: "Anyone, as long as it's cheap", c: false },
+        { t: "The highest bidder, no questions", c: false },
+        { t: "Nobody — we only demo", c: false }
       ]
     }
   ];
@@ -484,7 +484,7 @@
       label.style.left = x + "px"; label.style.top = y + "px";
       label.style.opacity = "1";
       label.innerHTML = ud.hidden
-        ? "✦ WĀHI NGARO <span class=\"maori\">the hidden place</span>"
+        ? "✦ WĀHI NGARO <span class=\"maori\">te tono · the proposal</span>"
         : (unlocked[ud.profile.id] ? "" : "🔒 ") + ud.profile.name + '<span class="maori">' + ud.profile.maori + "</span>";
     } else label.style.opacity = "0";
   }
@@ -723,14 +723,15 @@
     master.innerHTML =
       '<button class="close" id="masterClose" aria-label="Close">×</button>' +
       '<div class="inner">' +
-      '<div class="eyebrow" style="--role:#f5e6b8">WĀHI NGARO · the hidden place</div>' +
-      '<h1>HUX</h1>' +
-      '<p id="masterText">Nine facets unsealed. This is the part I don\'t put on a résumé: ' +
-      'I build with AI, by Māori, for ours. Every available resource, bent toward one current — ' +
-      'bulletproof outcomes, and something that lasts for the whānau. The mark below was drawn ' +
+      '<div class="eyebrow" style="--role:#f5e6b8">WĀHI NGARO · te tono — the proposal</div>' +
+      '<h1>NZ1Labs</h1>' +
+      '<p id="masterText">Nine disciplines, one studio. The codex is whole — and so is the offer: ' +
+      'bring us your exceptional product, and we\'ll build it bulletproof, original, and yours to own. ' +
+      'NZ1Labs — Indigenous-led, by Māori, for ours and yours. The mark below was drawn ' +
       'for this visit alone. Refresh, and it is gone forever.</p>' +
       '<canvas id="masterCanvas" width="440" height="440"></canvas>' +
       '<div class="sigcap">Your tohu — generated uniquely from this moment. No two visitors see the same.</div>' +
+      '<div class="sigcap" id="contactLine">→ Start a project — tell us about your product</div>' +
       '</div>';
     document.getElementById("masterClose").addEventListener("click", closeManifesto);
     drawTohu(document.getElementById("masterCanvas"), VISIT);

@@ -1,61 +1,34 @@
-# HUX — TE PŪMANAWA
+# TE PŪMANAWA — The Hermes Codex (by NZ1Labs)
 
-My personal site. Not a résumé — a living codex. Nine facets of who I am, sealed in a
-generative Aotearoa koru-nebula. Unseal each through a trial true to it; clear all nine
-and a hidden place opens.
+An interactive WebGL "codex" — a living billboard for **NZ1Labs**, an Indigenous-led development studio.
 
-> “Nine facets. One current. Unseal them — and find the hidden place.”
+Nine disciplines, each sealed behind a small interactive trial. Clear all nine and a hidden tenth node — **WĀHI NGARO · te tono** (the proposal) — appears, stamped with a *tohu* (signature) generated uniquely for that one visit.
 
-## The facets
-`IDENTITY` (iwi, Taranaki) · `CRAFT` (lead dev) · `STUDIO` (Indigenous-led Etsy POD,
-HARD IP RULE) · `TIKTOK` (daily, non-negotiable) · `POKER` (GTO from PT4) ·
-`HERMES` (the AI operator I run) · `MISSION CONTROL` (three.js war-room) ·
-`OPEN SOURCE` (public MIT repos, isoloman275-wq) · `WHY` (by Māori, for ours).
+## The nine disciplines
+- **AI Agents** — autonomous, self-correcting agent fleets (multi-model routing, kanban orchestration)
+- **WebGL & Web** — immersive, self-contained sites with original GLSL shaders (this one)
+- **App Dev** — native iOS/Android + cross-platform PWAs, store-ready
+- **Design** — Indigenous-led, original motifs, IP-safe by default
+- **Data & Intel** — dashboards, ML pipelines, decision engines
+- **DevOps & Infra** — self-hosted GPU fleets, hardened gateways, zero-downtime deploys
+- **Content & Growth** — automated daily content pipelines
+- **Open Source** — public MIT tooling we actually use
+- **The Mandate** — who we are: Indigenous-led, for clients with exceptional products
 
 ## The trick up the sleeve
-Two things you won't see elsewhere:
-1. **Per-visitor seeding.** The koru-nebula, the node shaders and the constellation's
-   orientation are all seeded from the moment you arrive. No two visitors ever see the
-   same site. Refresh and it rearranges.
-2. **WĀHI NGARO — the hidden place.** The tenth node does not exist until you have
-   unsealed all nine. It then fades into being at the centre; click it and you get my
-   real manifesto beside a *tohu* (signature) generated uniquely from that visit —
-   gone the moment you leave.
+- **Per-visitor seed** — the nebula, node shaders and constellation orientation are seeded from the moment someone arrives. No two visitors ever see the same site.
+- **WĀHI NGARO** — a 10th node that does not exist until all nine are unsealed. Click it for the proposal and a visit-unique tohu.
 
-## Tech
-- Custom GLSL fragment shader (generative koru-nebula + Matariki starfield, no images).
-- 9 procedural node sculptures (icosahedron displaced by 3D fbm in a vertex shader,
-  fresnel + cosine-palette iridescence, seeded per facet).
-- Hand-rolled orbit camera (drag / scroll / idle drift).
-- Nine role-flavoured unlock gates (choice / order / type / hold-the-pulse).
-- Generative kowhaiwhai signatures + a visitor-seeded tohu (2D canvas).
-- WebAudio generative ambient + interaction stings (original, no licensed audio).
-- Responsive, reduced-motion aware, IP-clean (original art only).
-
-## Run it locally
-```bash
+## Run it
+```
 cd hermes-profile-codex
 python3 -m http.server 8099
 # open http://localhost:8099
 ```
-No build step. `assets/three.min.js` is vendored — works offline, never breaks on a CDN.
+Three.js is vendored locally (`assets/three.min.js`) — no CDN, so it can't break on GitHub Pages.
 
-## Deploy to GitHub Pages
-1. Push this folder to a repo.
-2. Repo **Settings → Pages → Source: main / root**.
-3. Live at `https://<user>.github.io/<repo>/`.
-
-## Files
-```
-index.html        # shell, original CSS design system, loads assets
-assets/app.js     # shaders, scene, gates, audio, generative art, the hidden node
-assets/three.min.js  # vendored Three.js (r160, UMD) — the only dependency
-```
-
-## Notes
-- The Māori visual language (koru, kowhaiwhai, Matariki, wāhi ngaro) is used as original
-  generative interpretation and appreciation — not as reproduction of tapu/sacred designs.
-- Built by Hermes (operator/Atua on M1, WSL) for Hux / Amanah2.
+## Deploy (GitHub Pages)
+Push to a repo, enable Pages on the branch root. That's it.
 
 ---
-MIT.
+NZ1Labs — Indigenous-led development. By Māori, for ours — and yours.
