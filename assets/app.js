@@ -14,124 +14,124 @@
   }
 
   var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Per-visitor seed: no two visits ever look the same.
+  var VISIT = Math.random() * 6.2831853;
 
   /* ----------------------------- DATA ------------------------------- */
   // Grounded in the live lab topology (M1/M2/M3 routing, models, mandates).
   var PROFILES = [
     {
-      id: "architect", name: "ARCHITECT", maori: "Kaiwhakamahere",
+      id: "identity", name: "IDENTITY", maori: "Ko wai ahau",
       color: "#6ee7b7", seed: 0.13, scale: 1.12,
-      machine: "M2 · ornith:35b", ctx: "~201K context",
-      mandate: "The shape before the stone. Architect decomposes the brief into contracts and load paths, then hands a clean spec downstream. It owns design — never routing.",
-      caps: ["System & interface decomposition", "API contract + data-shape design", "Brief → task graph for the Coder", "Explicitly NOT the traffic controller"],
-      gate: "order",
-      gatePrompt: "Assemble the load path — click the build stages in their true order.",
-      items: ["Decompose the brief", "Design API contract", "Hand spec to Coder", "Security review", "Deploy"]
+      machine: "Taranaki · Aotearoa", ctx: "Ngā Rauru / Ngāti Tūwharetoa",
+      mandate: "I'm Hux — also Amanah2. Māori and Pacific (Ngā Rauru, Ngāti Tūwharetoa), born of Taranaki. Lead dev. The motifs on this site are mine; they rise from my whenua, not a brand.",
+      caps: ["Ngā Rauru + Ngāti Tūwharetoa", "Taranaki, Aotearoa", "Lead Dev / operator", "Motifs are mine — original"],
+      gate: "choice",
+      gatePrompt: "Before you unseal me — what's my iwi?",
+      options: [
+        { t: "Taranaki · Ngā Rauru / Ngāti Tūwharetoa", c: true },
+        { t: "Waikato · Tainui", c: false },
+        { t: "Canterbury · Ngāi Tahu", c: false },
+        { t: "Auckland · Ngāti Whātua", c: false }
+      ]
     },
     {
-      id: "coder", name: "CODER", maori: "Kaihanga Waehere",
+      id: "craft", name: "CRAFT", maori: "Kaihanga",
       color: "#60a5fa", seed: 0.31, scale: 1.0,
-      machine: "M2 · qwen3.6-hermes", ctx: "192K context",
-      mandate: "The primary hand. Coder turns specs into working code against M2's Hermes-tuned model, with a Cloud fallback for the big or stuck jobs.",
-      caps: ["Feature & module implementation", "Refactors, tests, build fixes", "Fallback → Cloud (us) when blocked", "Pairs with Reviewer before merge"],
-      gate: "type",
-      gatePrompt: "Type the incantation to open the channel to the local model.",
-      type: "ollama.chat()"
-    },
-    {
-      id: "researcher", name: "RESEARCHER", maori: "Kairapu",
-      color: "#c084fc", seed: 0.52, scale: 0.96,
-      machine: "M2 · qwen3.6-hermes", ctx: "192K context",
-      mandate: "The seeker. Researcher runs recon, literature and market discovery, resolving entities out of noise before a build begins.",
-      caps: ["Domain & codebase reconnaissance", "Paper / market / API discovery", "Entity resolution & signal extraction", "Feeds Architect's briefs"],
-      gate: "choice",
-      gatePrompt: "Among the noise, resolve the true signal — which endpoint is the M1 Ollama API?",
-      options: [
-        { t: "http://192.168.1.8:11434", c: true },
-        { t: "http://192.168.1.15:8188", c: false },
-        { t: "http://localhost:11434", c: false },
-        { t: "m3 · qwen3.5:4b /api/chat", c: false }
-      ]
-    },
-    {
-      id: "reviewer", name: "REVIEWER", maori: "Kaiarotake",
-      color: "#f472b6", seed: 0.71, scale: 0.98,
-      machine: "M2 · qwen3.6-hermes", ctx: "192K context",
-      mandate: "The gate. Reviewer holds quality and security gates, catching the silent faults a pipeline would otherwise ship.",
-      caps: ["Diff & security review", "Pre-merge quality gates", "Bug / regression spotting", "Sign-off before Deploy"],
-      gate: "choice",
-      gatePrompt: "A pipeline silently drops subtitles. Which line is the fault?",
-      code: ["segments = model.transcribe(path)", "for s in segments: write_timing(s)", "for s in segments: write_words(s)", "ffmpeg(subtitles=srt)"],
-      options: [
-        { t: "for s in segments: write_words(s)", c: true },
-        { t: "segments = model.transcribe(path)", c: false },
-        { t: "for s in segments: write_timing(s)", c: false },
-        { t: "ffmpeg(subtitles=srt)", c: false }
-      ]
-    },
-    {
-      id: "builder", name: "BUILDER", maori: "Kaihanga",
-      color: "#fbbf24", seed: 0.07, scale: 1.06,
-      machine: "M1 · ornith:9b", ctx: "256K context",
-      mandate: "On the WSL box, Builder does general integration and assembly work where the big context of ornith:9b earns its keep.",
-      caps: ["General build & integration", "Wiring services on M1", "Hands-on assembly tasks", "Local-first, no LAN hops"],
+      machine: "Full-stack", ctx: "Lead Dev",
+      mandate: "I build. Full-stack, systems, the automation no one else wants. Lead dev on everything I touch — from Etsy pipelines to a three-machine AI lab.",
+      caps: ["Full-stack + systems", "Automation & pipelines", "Multi-machine AI lab", "Ships daily"],
       gate: "order",
-      gatePrompt: "Sequence the integration steps — click them in build order.",
-      items: ["Pull the repo", "Install dependencies", "Run the build", "Smoke test", "Commit & push"]
+      gatePrompt: "How does a build go live? Click the steps in order.",
+      items: ["Sketch it", "Build it", "Break it", "Fix it", "Ship it"]
     },
     {
-      id: "data-analyst", name: "DATA-ANALYST", maori: "Kaitātari",
-      color: "#34d399", seed: 0.44, scale: 0.94,
-      machine: "M1 · ornith:9b", ctx: "256K context",
-      mandate: "The measurer. Data-Analyst turns raw signals — poker sessions, token spend, pipeline metrics — into decisions.",
-      caps: ["Analytics & visualisation", "Poker-coach metrics & trends", "Cost / VRAM / throughput reads", "Feeds strategy, not just charts"],
+      id: "studio", name: "STUDIO", maori: "Te Whare Toi",
+      color: "#fbbf24", seed: 0.07, scale: 1.06,
+      machine: "Indigenous-led", ctx: "Etsy · POD",
+      mandate: "An Indigenous-led Aotearoa studio. Print-on-demand, original Māori + Pacific motifs, drawn by me. The rule is iron: no copyrighted characters, likenesses, logos, lyrics, or real artists. Ever.",
+      caps: ["Etsy print-on-demand", "Original Māori + Pacific motifs", "HARD IP RULE enforced", "Designed by me, for ours"],
       gate: "choice",
-      gatePrompt: "Read the context windows. Tap the deepest memory — the tallest bar.",
-      chart: true,
+      gatePrompt: "The HARD IP RULE. Which brief is safe to ship?",
       options: [
-        { t: "M1 · ornith:9b · 256K", c: true },
-        { t: "M2 · ornith:35b · 201K", c: false },
-        { t: "M2 · qwen3.6-hermes · 192K", c: false },
-        { t: "M3 · qwen3.5:4b · 128K", c: false }
-      ]
-    },
-    {
-      id: "copywriter", name: "COPYWRITER", maori: "Kaituhi",
-      color: "#fb923c", seed: 0.63, scale: 0.92,
-      machine: "M3 · qwen3.5:4b", ctx: "~128K context",
-      mandate: "The voice. Copywriter writes Etsy listings and TikTok scripts that persuade — always inside the IP line.",
-      caps: ["Etsy listing & product copy", "TikTok script & hook writing", "Brand voice for the studio", "IP-clean by default"],
-      gate: "choice",
-      gatePrompt: "Which Etsy line is both persuasive and IP-clean?",
-      options: [
-        { t: "Hand-painted koru tee — original Aotearoa design by our studio", c: true },
-        { t: "Official Disney Mickey tee (inspired)", c: false },
-        { t: "Nike-style 'just-do-it' hoodie", c: false },
-        { t: "Taylor Swift lyrics mug", c: false }
-      ]
-    },
-    {
-      id: "devops", name: "DEVOPS", maori: "Kaiwhakahaere",
-      color: "#22d3ee", seed: 0.88, scale: 1.04,
-      machine: "M3 · qwen3.5:4b", ctx: "~128K context",
-      mandate: "The keeper of the lights. DevOps runs the gateway, deployments and the watchers that keep services alive.",
-      caps: ["Gateway & channel ops", "Deploys & systemd units", "Pipeline liveness & restarts", "Incident first responder"],
-      gate: "meter",
-      gatePrompt: "Hold to keep the gateway pulse inside the green band. Three steady holds unseals it."
-    },
-    {
-      id: "ip-guard", name: "IP-GUARD", maori: "Kaitiaki IP",
-      color: "#f87171", seed: 0.95, scale: 1.0,
-      machine: "M3 · qwen3.5:4b", ctx: "~128K context",
-      mandate: "The fence. IP-Guard enforces the HARD IP RULE on every asset: no copyrighted characters, likenesses, logos, lyrics or real artists.",
-      caps: ["Pre-publish IP compliance scan", "Blocks characters / logos / lyrics", "Keeps the studio original", "Signs off Etsy & TikTok drops"],
-      gate: "choice",
-      gatePrompt: "The HARD IP RULE: no copyrighted chars, likenesses, logos, lyrics or real artists. Which brief is safe to ship?",
-      options: [
-        { t: "Original kowhaiwhai tote — our own motif, no brand marks", c: true },
+        { t: "Original kowhaiwhai tote — my own motif, no brand marks", c: true },
         { t: "MCU hero poster (fan art, not for sale)", c: false },
         { t: "All Blacks logo stubby holder", c: false },
         { t: "Drake album-cover print", c: false }
+      ]
+    },
+    {
+      id: "tiktok", name: "TIKTOK", maori: "Te Reo Whakaari",
+      color: "#fb923c", seed: 0.63, scale: 0.92,
+      machine: "Daily", ctx: "Non-negotiable",
+      mandate: "Daily content. Non-negotiable. It's the top of every funnel — studio, builds, the lab — all of it flows through the feed. Show up every single day.",
+      caps: ["Daily posting", "Top of every funnel", "Studio + lab + builds", "Consistency > virality"],
+      gate: "choice",
+      gatePrompt: "What's the one rule of my TikTok?",
+      options: [
+        { t: "Post daily — non-negotiable", c: true },
+        { t: "Only post when inspired", c: false },
+        { t: "Chase virality over cadence", c: false },
+        { t: "Schedule, then ghost", c: false }
+      ]
+    },
+    {
+      id: "poker", name: "POKER", maori: "Te Kēmu",
+      color: "#c084fc", seed: 0.52, scale: 0.96,
+      machine: "GTO + PT4", ctx: "Coached by AI",
+      mandate: "Poker, played like an engineer. A GTO coach fed by my PT4 data, stack-aware, every hand reviewed. (And yes — the occasional spin on Vegastars en-NZ when the tables go quiet.)",
+      caps: ["GTO coach from PT4", "Stack-aware open / 3b / 4b", "Every hand reviewed", "Vegastars en-NZ on the side"],
+      gate: "choice",
+      gatePrompt: "Your AI coach reviews every hand for one verdict above all — which?",
+      options: [
+        { t: "LEAK — where the money bleeds", c: true },
+        { t: "WIN — biggest pot taken", c: false },
+        { t: "LUCK — variance only", c: false },
+        { t: "BLUFF — most courageous", c: false }
+      ]
+    },
+    {
+      id: "hermes", name: "HERMES", maori: "Te Atua",
+      color: "#22d3ee", seed: 0.88, scale: 1.04,
+      machine: "AI Operator", ctx: "M1 · M2 · M3",
+      mandate: "Hermes — the AI operator I run. The brain lives in Atua (OpenRouter T3, tencent/hy3). Nine worker-minds across three machines do the work; I hold the routing. We are one and the same: head agent, head operator.",
+      caps: ["Brain: OpenRouter T3 in Atua", "9 worker-minds, 3 machines", "I hold the routing", "One operator, one current"],
+      gate: "type",
+      gatePrompt: "Type the operator's name to open the channel.",
+      type: "hermes"
+    },
+    {
+      id: "mc", name: "MISSION CONTROL", maori: "Te Whare Whakahaere",
+      color: "#34d399", seed: 0.44, scale: 0.94,
+      machine: "Three.js", ctx: "War-room",
+      mandate: "Mission Control — a three.js war-room for the whole lab: machines, models, tokens, the feed. I'm building it as our own; we don't adopt someone else's. A session browser is next.",
+      caps: ["Three.js war-room", "Live machine / model state", "Our build, not adopted", "Session browser incoming"],
+      gate: "meter",
+      gatePrompt: "Keep the dashboard online — press & hold the pulse inside the green band."
+    },
+    {
+      id: "oss", name: "OPEN SOURCE", maori: "Te Puna",
+      color: "#f472b6", seed: 0.71, scale: 0.98,
+      machine: "GitHub", ctx: "MIT",
+      mandate: "I publish my own tools as public MIT repos under isoloman275-wq. If I built it and it's useful, it's yours to fork. Knowledge hoarding is the opposite of ours.",
+      caps: ["github.com/isoloman275-wq", "Public MIT repos", "Tools I actually use", "Fork it, make it yours"],
+      gate: "order",
+      gatePrompt: "How a tool gets shared — click in order.",
+      items: ["Build it", "Use it daily", "Polish it", "MIT it", "Ship the repo"]
+    },
+    {
+      id: "why", name: "WHY", maori: "Te Take",
+      color: "#e8c37a", seed: 0.95, scale: 1.1,
+      machine: "Purpose", ctx: "Ours",
+      mandate: "Why all of it? Bills to pay, sure — but the real aim: leverage every available resource, bulletproof outcomes, and build something that's ours. For the family. By Māori, for ours.",
+      caps: ["Pay the bills, build the legacy", "Bulletproof, every time", "By Māori, for ours", "For the whānau"],
+      gate: "choice",
+      gatePrompt: "What's the real aim?",
+      options: [
+        { t: "Build something that's ours, for the whānau", c: true },
+        { t: "Clout and followers", c: false },
+        { t: "Win the algorithm", c: false },
+        { t: "Impress strangers", c: false }
       ]
     }
   ];
@@ -185,13 +185,13 @@
 
   var BG_FRAG = [
     "precision highp float;",
-    "uniform float uTime; uniform vec2 uRes; varying vec2 vUv;",
+    "uniform float uTime; uniform vec2 uRes; uniform float uSeed; varying vec2 vUv;",
     "float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }",
     "float noise(vec2 p){ vec2 i=floor(p),f=fract(p); float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));",
     "  vec2 u=f*f*(3.-2.*f); return mix(mix(a,b,u.x),mix(c,d,u.x),u.y); }",
     "float fbm(vec2 p){ float v=0.,a=.5; for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.02; a*=.5; } return v; }",
     "void main(){",
-    "  vec2 uv=vUv; vec2 p=(uv-0.5); p.x*=uRes.x/uRes.y;",
+    "  vec2 uv=vUv; vec2 p=(uv-0.5); p.x*=uRes.x/uRes.y; float cs=cos(uSeed),sn=sin(uSeed); p=vec2(p.x*cs-p.y*sn,p.x*sn+p.y*cs);",
     "  float t=uTime*0.04;",
     "  vec2 q=vec2(fbm(p*1.5+t), fbm(p*1.5-t+5.2));",
     "  vec2 r=vec2(fbm(p*1.5+1.5*q+vec2(1.7,9.2)+0.15*t), fbm(p*1.5+1.5*q+vec2(8.3,2.8)-0.12*t));",
@@ -217,6 +217,7 @@
   var canvas = document.getElementById("scene");
   var renderer, bgScene, bgCam, scene, camera, clock;
   var nodeMeshes = [], nodes = [];
+  var hiddenNode = null, hiddenRevealed = false;
   var unlocked = {};
   var group;
   var raycaster = new THREE.Raycaster();
@@ -299,7 +300,7 @@
     var geo = new THREE.IcosahedronGeometry(1, 4);
     var mat = new THREE.ShaderMaterial({
       uniforms: {
-        uTime: { value: 0 }, uAmp: { value: 0.34 }, uSeed: { value: p.seed * 10 },
+        uTime: { value: 0 }, uAmp: { value: 0.34 }, uSeed: { value: p.seed * 10 + VISIT },
         uFreq: { value: 1.6 }, uColor: { value: new THREE.Color(p.color) },
         uLocked: { value: 1 }, uGlow: { value: 0.2 }
       },
@@ -359,7 +360,7 @@
     bgScene = new THREE.Scene();
     bgCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     var bgMat = new THREE.ShaderMaterial({
-      uniforms: { uTime: { value: 0 }, uRes: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) } },
+      uniforms: { uTime: { value: 0 }, uRes: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }, uSeed: { value: VISIT } },
       vertexShader: BG_VERT, fragmentShader: BG_FRAG, depthTest: false, depthWrite: false
     });
     bgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), bgMat));
@@ -376,6 +377,22 @@
       var n = makeNode(p, i);
       nodes.push(n); nodeMeshes.push(n.mesh); group.add(n.mesh);
     });
+    // Hidden 10th node — WĀHI NGARO — does not exist until all nine are unsealed.
+    var hgeo = new THREE.IcosahedronGeometry(1, 4);
+    var hmat = new THREE.ShaderMaterial({
+      uniforms: { uTime: { value: 0 }, uAmp: { value: 0.5 }, uSeed: { value: VISIT + 3.1 }, uFreq: { value: 2.2 },
+        uColor: { value: new THREE.Color("#f5e6b8") }, uLocked: { value: 0 }, uGlow: { value: 0.9 } },
+      vertexShader: NODE_VERT, fragmentShader: NODE_FRAG
+    });
+    var hmesh = new THREE.Mesh(hgeo, hmat);
+    hmesh.scale.setScalar(0.001); hmesh.visible = false;
+    hmesh.userData = { hidden: true };
+    var hspr = new THREE.Sprite(new THREE.SpriteMaterial({ map: GLOW_TEX, color: new THREE.Color("#f5e6b8"),
+      transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.0 }));
+    hspr.scale.setScalar(5.0); hmesh.add(hspr);
+    group.add(hmesh);
+    hiddenNode = { mesh: hmesh, mat: hmat, spr: hspr, phase: 0 };
+    group.rotation.y = VISIT;
     group.add(buildWeb());
     group.add(buildStars());
 
@@ -396,7 +413,8 @@
     canvas.addEventListener("wheel", onWheel, { passive: false });
     document.getElementById("closeBtn").addEventListener("click", closeModal);
     modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
-    window.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+    window.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeModal(); closeManifesto(); } });
+    master.addEventListener("click", function (e) { if (e.target === master) closeManifesto(); });
     // first gesture starts audio
     window.addEventListener("pointerdown", function once() {
       initAudio(); window.removeEventListener("pointerdown", once);
@@ -433,9 +451,13 @@
       var n = ndc(e);
       mouse.set(n.x, n.y);
       raycaster.setFromCamera(mouse, camera);
-      var hit = raycaster.intersectObjects(nodeMeshes, false);
+      var targets = nodeMeshes.slice();
+      if (hiddenRevealed) targets.push(hiddenNode.mesh);
+      var hit = raycaster.intersectObjects(targets, false);
       if (hit.length) {
-        var p = hit[0].object.userData.profile;
+        var ud = hit[0].object.userData;
+        if (ud.hidden) { showManifesto(); return; }
+        var p = ud.profile;
         if (unlocked[p.id]) showBrief(p); else openGate(p);
       }
     }
@@ -451,15 +473,19 @@
     var n = ndc(e);
     mouse.set(n.x, n.y);
     raycaster.setFromCamera(mouse, camera);
-    var hit = raycaster.intersectObjects(nodeMeshes, false);
+    var targets = nodeMeshes.slice();
+    if (hiddenRevealed) targets.push(hiddenNode.mesh);
+    var hit = raycaster.intersectObjects(targets, false);
     if (hit.length) {
-      var p = hit[0].object.userData.profile;
+      var ud = hit[0].object.userData;
       var wp = hit[0].object.getWorldPosition(new THREE.Vector3()).project(camera);
       var x = (wp.x * 0.5 + 0.5) * n.r.width + n.r.left;
       var y = (-wp.y * 0.5 + 0.5) * n.r.height + n.r.top;
       label.style.left = x + "px"; label.style.top = y + "px";
       label.style.opacity = "1";
-      label.innerHTML = (unlocked[p.id] ? "" : "🔒 ") + p.name + '<span class="maori">' + p.maori + "</span>";
+      label.innerHTML = ud.hidden
+        ? "✦ WĀHI NGARO <span class=\"maori\">the hidden place</span>"
+        : (unlocked[ud.profile.id] ? "" : "🔒 ") + ud.profile.name + '<span class="maori">' + ud.profile.maori + "</span>";
     } else label.style.opacity = "0";
   }
 
@@ -496,7 +522,11 @@
     updateHud();
     // replace gate with brief
     pendingBrief = setTimeout(function () { showBrief(p, true); }, 650);
-    if (Object.keys(unlocked).length === PROFILES.length) setTimeout(showMaster, 1600);
+    if (Object.keys(unlocked).length === PROFILES.length && !hiddenRevealed) {
+      hiddenRevealed = true;
+      hiddenNode.mesh.visible = true;
+      chord();
+    }
   }
 
   function buildChoice(stage, p) {
@@ -687,31 +717,70 @@
     spiral(cx, cy, baseR * 0.8, rs, 1.2, 3);
   }
 
-  function showMaster() {
+  function showManifesto() {
     master.classList.add("show");
     chord();
-    var c = document.getElementById("masterCanvas"); drawMaster(c);
+    master.innerHTML =
+      '<button class="close" id="masterClose" aria-label="Close">×</button>' +
+      '<div class="inner">' +
+      '<div class="eyebrow" style="--role:#f5e6b8">WĀHI NGARO · the hidden place</div>' +
+      '<h1>HUX</h1>' +
+      '<p id="masterText">Nine facets unsealed. This is the part I don\'t put on a résumé: ' +
+      'I build with AI, by Māori, for ours. Every available resource, bent toward one current — ' +
+      'bulletproof outcomes, and something that lasts for the whānau. The mark below was drawn ' +
+      'for this visit alone. Refresh, and it is gone forever.</p>' +
+      '<canvas id="masterCanvas" width="440" height="440"></canvas>' +
+      '<div class="sigcap">Your tohu — generated uniquely from this moment. No two visitors see the same.</div>' +
+      '</div>';
+    document.getElementById("masterClose").addEventListener("click", closeManifesto);
+    drawTohu(document.getElementById("masterCanvas"), VISIT);
   }
-  function drawMaster(canvas) {
+  function closeManifesto() { master.classList.remove("show"); }
+
+  // A generative signature seeded by the visitor — unique every load.
+  function drawTohu(canvas, seed) {
     var ctx = canvas.getContext("2d"), w = canvas.width, h = canvas.height, cx = w / 2, cy = h / 2;
     ctx.clearRect(0, 0, w, h);
-    var gold = "#e8c37a", poun = "#6ee7b7";
-    for (var k = 0; k < 9; k++) {
-      var a = k * (Math.PI * 2 / 9) - Math.PI / 2;
+    var gold = "#f5e6b8", poun = "#6ee7b7", ink = "#e8c37a";
+    // radial spokes
+    var spokes = 7 + Math.floor((seed * 13) % 7);
+    for (var s = 0; s < spokes; s++) {
+      var a = seed + s * (Math.PI * 2 / spokes);
       ctx.save(); ctx.translate(cx, cy); ctx.rotate(a);
-      var col = k % 2 ? gold : poun;
-      ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.shadowColor = col; ctx.shadowBlur = 12;
-      ctx.beginPath();
-      for (var i = 0; i <= 120; i++) {
-        var t = i / 120, ang = t * 1.3 * Math.PI * 2, rr = (w * 0.42) * (1 - t * 0.9);
-        var px = Math.cos(ang) * rr, py = Math.sin(ang) * rr;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.stroke(); ctx.restore();
+      var g = ctx.createLinearGradient(0, 0, w * 0.46, 0);
+      g.addColorStop(0, gold); g.addColorStop(1, "rgba(245,230,184,0)");
+      ctx.strokeStyle = g; ctx.lineWidth = 1.2; ctx.globalAlpha = 0.5;
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(w * 0.46, 0); ctx.stroke();
+      ctx.restore();
     }
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = gold; ctx.font = "13px monospace"; ctx.textAlign = "center";
-    ctx.fillText("9 / 9 · the whakapapa is whole", cx, h - 10);
+    ctx.globalAlpha = 1;
+    // nested koru, rotated by seed
+    var arms = 3 + Math.floor((seed * 5) % 3);
+    for (var k = 0; k < arms; k++) {
+      var ka = seed * 2 + k * (Math.PI * 2 / arms);
+      var ox = cx + Math.cos(ka) * 60, oy = cy + Math.sin(ka) * 60;
+      drawKoruAt(ctx, ox, oy, 120, ka, 1.15, 3, k % 2 ? poun : gold);
+    }
+    drawKoruAt(ctx, cx, cy, 150, seed * 3, 1.25, 3, ink);
+    ctx.fillStyle = gold; ctx.font = "12px monospace"; ctx.textAlign = "center";
+    ctx.fillText("· " + spokes + " whenua · " + arms + " kōwhai ·", cx, h - 12);
+  }
+  function drawKoruAt(ctx, x, y, r, ang, turns, depth, color) {
+    function spiral(px, py, rr, a, tn, d) {
+      if (d <= 0 || rr < 2) return;
+      ctx.beginPath();
+      var steps = 110;
+      for (var i = 0; i <= steps; i++) {
+        var tt = i / steps, aa = a + tt * tn * Math.PI * 2, rad = rr * (1 - tt * 0.92);
+        var X = px + Math.cos(aa) * rad, Y = py + Math.sin(aa) * rad;
+        if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+      }
+      ctx.strokeStyle = color; ctx.lineWidth = Math.max(1.2, rr * 0.11); ctx.lineCap = "round";
+      ctx.shadowColor = color; ctx.shadowBlur = 10; ctx.stroke(); ctx.shadowBlur = 0;
+      var ex = px + Math.cos(a + tn * Math.PI * 2) * rr * 0.08, ey = py + Math.sin(a + tn * Math.PI * 2) * rr * 0.08;
+      spiral(ex, ey, rr * 0.42, a + tn * Math.PI * 2 + 1.1, 0.9, d - 1);
+    }
+    spiral(x, y, r, ang, turns, depth);
   }
 
   function closeModal() {
@@ -756,6 +825,14 @@
       n.spr.material.opacity = (unlocked[n.profile.id] ? 0.7 : 0.35) + Math.sin(t * 1.5 + n.phase) * 0.08;
     });
 
+    if (hiddenRevealed) {
+      var ht = hiddenNode.mesh.scale.x + (1.6 - hiddenNode.mesh.scale.x) * 0.06;
+      hiddenNode.mesh.scale.setScalar(ht);
+      hiddenNode.mat.uniforms.uTime.value = t;
+      hiddenNode.spr.material.opacity = 0.7 + Math.sin(t * 2.0) * 0.2;
+      hiddenNode.mesh.position.y = Math.sin(t * 0.8) * 0.25;
+    }
+
     if (activeGate && activeGate.update) activeGate.update(dt);
 
     renderer.clear();
@@ -767,7 +844,9 @@
   // Debug surface (harmless): lets tooling inspect/drive the codex.
   window.__codex = {
     PROFILES: PROFILES, openGate: openGate, solve: solve, showBrief: showBrief,
-    unlocked: unlocked, nodes: nodes
+    showManifesto: showManifesto, unlocked: unlocked, nodes: nodes,
+    getHidden: function () { return hiddenNode; },
+    isRevealed: function () { return hiddenRevealed; }
   };
   try { init(); } catch (e) {
     document.getElementById("loader").innerHTML = '<div class="txt" style="color:#ef6b6b">WebGL init failed: ' + esc(String(e)) + "</div>";
